@@ -7,34 +7,38 @@
     <meta name="description" content="smash brothers turn base">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="http://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="player">
             <div class="playerInfo">
-                <img src="./imgs/placeHolder.png" class="playerImage"/>
+                <img src="./imgs/placeHolder.png" class="playerImage" id="pimgStat" />
                 <ul class="playerList">
-                    <li id="playerChar"> </li>
-                    <li id="playerHealth"> </li>
-                    <li id="playerAttack"> </li>
+                    <li>Character Name</li>
+                    <li class="playerChar" id="pchrName">_</li>
+                    <li>Health</li>
+                    <li class="playerHealth" id="pchrHealth">_</li>
+                    <li>Current Attack Power</li>
+                    <li class="playerAttack" id="pchrAttack">_</li>
                 </ul>
             </div>
         </div>
         <div class="enemies">
-            <div class="enemyImg">
-                <img src="./imgs/placeHolder.png" class="enemyImg"/>
-                <img src="./imgs/placeHolder.png" class="enemyImg"/>
-                <img src="./imgs/placeHolder.png" class="enemyImg"/>
+            <div id="enemyImg">
+
             </div>
         </div>
-        <div class="arena">
+        <div class="arena" id="arena">
             Fighting Area
         </div>
         <div class="controls">
-            <button id="attack">Attack</button>
-            <button id="defend">Defend</button>
-            <button id="special">Special</button>
+            <a href="#" id="select" class="button">Select</a>
+            <a href="#" id="attack" class="button">Attack</a>
+            <a href="#" id="defend" class="button">Defend</a>
+            <a href="#" id="special" class="button">Special</a>
         </div>
     </div>
     <script src="./scripts/script.js"></script>

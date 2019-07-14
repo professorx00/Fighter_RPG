@@ -19,3 +19,7 @@ A Turn Based RPG where the player choose a character then has to fight the remai
         [] Add More Fighters and Have player choose 3
         [] Add Special Attack that builds up randomly over time
         [] Animation on Attack
+    // Html and CSS
+        [] grid format
+        [] buttons 
+        [] Ids
