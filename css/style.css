@@ -1,0 +1,67 @@
+body{
+
+}
+
+div.container{
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 960px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    justify-content: stretch;
+}
+
+div.player{
+    background-color: paleturquoise;
+    grid-column-start: 1;
+    grid-column-end:6;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+div.enemies{
+    padding-left:2%;
+    padding-right:2%;
+    justify-content: space-around;
+    background-color: pink;
+    grid-column-start: 6;
+    grid-column-end:13;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+div.arena{
+    background-color: green;
+    grid-column-start: 1;
+    grid-column-end:13;
+    grid-row-start: 3;
+    grid-row-end: 10;
+}
+div.controls{
+    background-color: yellow;
+    grid-column-start: 1;
+    grid-column-end:13;
+    grid-row-start: 10;
+    grid-row-end: 11;
+   
+}
+div.playerInfo{
+    align-content: center;
+    text-align: center;
+    display:flex;
+    flex-direction: row;
+}
+img.playerImage{
+    margin: 2%;
+    border: blue 1px solid;
+}
+ul.playerList{
+    list-style: none;
+    margin-top: 10%;
+}
+div.enemyImg{
+    margin: 2%;
+}
+img.enemyImg{
+    border: red 1px solid;
+}
