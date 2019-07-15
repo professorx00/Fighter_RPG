@@ -1,26 +1,33 @@
 $(document).ready(function () {
 
-    // Inital Doc Variables into Jquery Objects
-    docPlayer = $("#pchrName");
-    docPH = $("#pchrHealth");
-    docPA = $("#pchrAttack");
-    docEnemies = $("#enemies");
-    docArena = $("#arena");
-    docPlayIcon = $("#pimgStat");
-    docEnemyImg = $("#enemyImg");
+    // pregenerate Document Objects
+    let docPlayerInfo = $("#playerInfo");
+    let docPlayerImage = $("#playerImage");
+    let docPlayerChar = $("#playerChar");
+    let docPlayerHealth = $("#playerHealth");
+    let docPlayerAttack = $("#playerAttack");
+    let docChallengers = $("#Challengers");
+    let docArena = $("#arena");
+    let docSelect = $("#select");
+    let docAttack = $("#attack");
+    //Challenger
+    let docChal1Img = $("#challenger1Img");
+    let docChal1Info = $("#challenger1Info");
+    let docChal2Img = $("#challenger2Img");
+    let docChal2Info = $("#challenger2Info");
+    let docChal3Img = $("#challenger3Img");
+    let docChal3Info = $("#challenger3Info");
+    // Shared Variables
+    let player;
+    let challengers;
+    let selectCount=0;
+    let pAttack;
+    let pHealth;
+    let cAttack;
+    let cHealth;
 
-    //global
-
-    let playerChoice = false;
-    let playerChar;
-    let enemyChoice = [];
-    let activeEnemy;
-    let actEnemyHealth = 0;
-
-
-    // Character Object containing playerHealth,enemyHealth,Player Attack, Enemy Attack, 150pxImg, 250pxImg,player,enemy
-
-    let characters = {
+    //Fighter Object
+    let fighters = {
         char1: {
             charName: "Charizard",
             playerHealth: 100,
@@ -76,158 +83,62 @@ $(document).ready(function () {
             pSelect: false,
             eSelect: false
         },
-        char6: {
-            charName: "Peach",
-            playerHealth: 100,
-            enemyHealth: 100,
-            playerAttack: 10,
-            enemyAttack: 10,
-            smImg: "./imgs/150px-Peach.png",
-            lgImg: "./imgs/250px-Peach.png",
-            pSelect: false,
-            eSelect: false
-        },
-        char7: {
-            charName: "Pikachu",
-            playerHealth: 100,
-            enemyHealth: 100,
-            playerAttack: 10,
-            enemyAttack: 10,
-            smImg: "./imgs/150px-Pikachu.png",
-            lgImg: "./imgs/250px-Pikachu.png",
-            pSelect: false,
-            eSelect: false
-        },
-        char8: {
-            charName: "Pit",
-            playerHealth: 100,
-            enemyHealth: 100,
-            playerAttack: 10,
-            enemyAttack: 10,
-            smImg: "./imgs/150px-Pit.png",
-            lgImg: "./imgs/250px-Pit.png",
-            pSelect: false,
-            eSelect: false
-        },
-        char9: {
-            charName: "Samus",
-            playerHealth: 100,
-            enemyHealth: 100,
-            playerAttack: 10,
-            enemyAttack: 10,
-            smImg: "./imgs/150px-Samus.png",
-            lgImg: "./imgs/250px-Samus.png",
-            pSelect: false,
-            eSelect: false
-        },
-        char0: {
-            charName: "Link",
-            playerHealth: 100,
-            enemyHealth: 100,
-            playerAttack: 10,
-            enemyAttack: 10,
-            smImg: "./imgs/150px-YoungLink.png",
-            lgImg: "./imgs/250px-YoungLink.png",
-            pSelect: false,
-            eSelect: false
-        }
-    }// end of Characyer JSON Object
+    };
 
-    charAmount = Object.keys(characters).length;
+    let fighterCount = Object.keys(fighters).length;//number of fighters
 
-    //
-    let main = {
-        health : 0,
-        attack : 0,
-        intialize: function () {
-            docArena.empty();
-            docArena.addClass("ArenaCharSelect");
-            playerChoice = getCharacters(characters, playerChoice);
-            let instruction = $("<span>");
-            instruction.text("Please Select Your Character");
-            docArena.append(instruction);
-            let count=0;
-            ({ count, playerChar } = selection(count, playerChar, characters, enemyChoice));
-            instruction.text("Please Choose the enemy you wish to face first");
-            docArena.append(instruction);
-            this.play();
-        },//Intialization of game End
-        play: function(){
-            console.log("play" + $(".Selected"));
-        }
-    };//JSON OBJECT Main End
+    //global FUNctions
 
-
-    main.intialize();
-
-});//document.ready end
-
-function getCharacters(characters, playerChoice) {
-    $.each(characters, function (i, item) {
-        let holder = $("<div>").addClass("cSelectHolder");
-        let choice = $("<img>").attr("src", characters[i].smImg).addClass(`${characters[i].charName} charSelect`).attr("data-char", i);
-        ;
-        let cname = $("<span>").text(characters[i].charName);
-        holder.append(choice, cname);
-        docArena.append(holder);
-        holder.on("click", function (event) {
-            
-            if (!playerChoice) {
-                choice.addClass("Selected");
-                holder.addClass("boxSelected");
-                playerChoice = true;
-            }
-            else {
-                $(".boxSelected").css("border", "").removeClass("boxSelected");
-                $(".Selected").removeClass("Selected");
-                choice.addClass("Selected");
-                holder.addClass("boxSelected");
+    var CreateRoster = function () {
+        docArena.empty();
+        // create a roster that is displayed in arena for choice picking
+        docArena.addClass("charSelect");
+        $.each(fighters, function (i, item) {
+            if (fighters[i] !== player) {
+                let character = $("<div>").addClass(`character ${fighters[i].charName}`);
+                let charImg = $("<img>").addClass("charImgSelect");
+                let charDetails = $("<span>");
+                charImg.attr("src", fighters[i].smImg);
+                charDetails.text(`${fighters[i].charName} Health:${fighters[i].enemyHealth}`);
+                character.append(charImg, charDetails);
+                docArena.append(character);
             }
         });
-    });
-    return playerChoice;
-}
+    }
 
-function selection(count, playerChar, characters, enemyChoice) {
-    $("#select").on("click", function (event) {
-        if (count == 0) {
-            playerChar = characters[$(".Selected").attr("data-char")];
-            $(".boxSelected").css("display", "none");
-            docPlayIcon.attr("src", playerChar.smImg);
-            docPlayer.text(playerChar.charName);
-            docPH.text(playerChar.playerHealth);
-            docPA.text(playerChar.playerAttack);
-            this.health = parseInt(playerChar.playerHealth);
-            this.attack = parseInt(playerChar.playerAttack);
-            $(".playerList").css("display", "inline");
-            count += 1;
-        }
-        else if (count > 0 && count < 3) {
-            enemyChoice.push(characters[$(".Selected").attr("data-char")]);
-            let enemy = $(".Selected");
-            let enemyBox = $(".boxSelected");
-            let temp = $(enemyBox);
-            temp.addClass("boxEnemy");
-            docEnemyImg.append(temp);
-            count += 1;
-        }
-        else if (count > 2 && count < 4) {
-            enemyChoice.push(characters[$(".Selected").attr("data-char")]);
-            let enemy = $(".Selected");
-            let enemyBox = $(".boxSelected");
-            let temp = $(enemyBox);
-            temp.addClass("boxEnemy");
-            docEnemyImg.append(temp);
-            count += 1;
-            docArena.empty();
-            
-        }
-        else {
-            docArena.empty();
-            count += 1;
-        }
-        
-    });
-    return { count, playerChar };
-}
+    var HeroAssign = function (hero) {
+        //assign player to Hero for reference //set playerImage to DOM //set playerChar,playerHealth,playerAttack to DOM
+        player = hero;
+        docPlayerImage.attr("src", player.smImg);
+        docPlayerChar.text(player.charName);
+        docPlayerHealth.text(player.playerHealth);
+        docPlayerAttack.text(player.playerAttack);
+        pHealth = player.playerAttack;
+        pAttack = player.playerAttack;
 
+    };
+    var ChallengerAssign = function (selection) {
+        selectCount+=1;
+
+        if(selectCount===1){
+            docChal1Img.attr("src",selection.smImg);
+            docChal1Img.attr("data-char",selection.charName);
+            docChal1Info.text(`${selection.charName}`);
+        }
+        else if(selectCount === 2){
+            docChal2Img.attr("src",selection.smImg);
+            docChal2Info.text(`${selection.charName}`);
+        }
+        else if(selectCount === 3){
+            docChal3Img.attr("src",selection.smImg);
+            docChal3Info.text(`${selection.charName}`);
+        }
+        else{
+            return challengers;
+        }
+    };
+    
+    CreateRoster();
+    ChallengerAssign(fighters.char1);
+    $(".Charizard").attr("src","https://via.placeholder.com/150");
+});

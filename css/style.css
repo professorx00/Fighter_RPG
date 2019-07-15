@@ -1,6 +1,9 @@
 body{
 
 }
+li{
+    padding: 2px;
+}
 
 div.container{
     margin-top: 2%;
@@ -20,7 +23,7 @@ div.player{
     grid-row-start: 1;
     grid-row-end: 3;
 }
-div.enemies{
+div.challengers{
     padding-left:2%;
     padding-right:2%;
     background-color: pink;
@@ -28,13 +31,24 @@ div.enemies{
     grid-column-end:13;
     grid-row-start: 1;
     grid-row-end: 3;
+    
+}
+div.challengerContainer{
+    display: flex;
+    flex-direction: row;
+}
+img.challengerImg{
+    max-width: 150px;
+}
+div.character{
+    padding: 4px;
 }
 div.arena{
     background-color: green;
     grid-column-start: 1;
     grid-column-end:13;
     grid-row-start: 3;
-    grid-row-end: 10;
+    grid-row-end: 9;
 }
 div.controls{
     
@@ -42,7 +56,7 @@ div.controls{
     background-color: yellow;
     grid-column-start: 1;
     grid-column-end:13;
-    grid-row-start: 8;
+    grid-row-start: 9;
     grid-row-end: 10;
     text-align: center;
    
@@ -53,40 +67,35 @@ div.playerInfo{
     display:flex;
     flex-direction: row;
 }
-img.playerImage{
+#playerImage{
     margin: 2%;
-    border: blue 1px solid;
 }
 ul.playerList{
-    display:none;
+    /* display:none; */
     list-style: none;
-    margin-top: 10%;
-}
-div#enemyImg{
-    margin: 2%;
-    display:flex;
-    flex-direction: row;
-}
-img.enemyImg{
-    border: red 1px solid;
-}
-div.cSelectHolder{
-    display:flex;
-    flex-direction: column;
-    text-align: center;
-}
-div.ArenaCharSelect{
-    padding-top: 5%;
-    padding-left: 2%;
-    padding-right:2%;
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr
-                        1fr
-                        1fr
-                        1fr;
 }
 
+div.character{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+.charImgSelect{
+    max-width: 150px;
+}
+
+div.charSelect{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+
+
+/* Button CSS*/
 .button {
     border-top: 1px solid #96d1f8;
     background: #65a9d7;
@@ -126,12 +135,4 @@ div.ArenaCharSelect{
 }
 #special{
     display:none;
-}
-.boxSelected{
-    
-    border: 2px blue solid;
-}
-.boxEnemy{
-    max-width: 150px;
-    
 }
