@@ -116,3 +116,55 @@ $(document).ready(function () {
         });
     }
 
+    const heroImg = ()=>
+    let selection = function () {
+        let counter = 0;
+        $(".character").on("click", function (event) {
+            let selectedCharacter = fighters[$(this).attr("data-char")];
+            console.log(selectedCharacter);
+            if (counter == 0) {
+                player = selectedCharacter;
+                docPlayerImage.attr("src", player.smImg);
+                docPlayerChar.text(player.charName);
+                docPlayerHealth.text(player.playerHealth);
+                docPlayerAttack.text(player.playerAttack);
+                pHealth = player.playerAttack;
+                pAttack = player.playerAttack;
+            }
+            else if (counter > 0 && counter < 4) {
+                let ChosenChallenger =[]
+                ChosenChallenger.push[selectedCharacter.keyInfo];
+                selectCount += 1;
+                if (selectCount === 1) {
+                    docChal1.removeClass("character");
+                    docChal1.addClass("Chal");
+                    docChal1Img.attr("src", selectedCharacter.smImg);
+                    docChal1Info.text(`${selectedCharacter.charName}`);
+                }
+                else if (selectCount === 2) {
+                    docChal2.removeClass("character");
+                    docChal2.addClass("Chal");
+                    docChal2Img.attr("src", selectedCharacter.smImg);
+                    docChal2Info.text(`${selectedCharacter.charName}`);
+                }
+                else if (selectCount === 3) {
+                    docChal3.removeClass("character");
+                    docChal3.addClass("Chal");
+                    docChal3Img.attr("src", selectedCharacter.smImg);
+                    docChal3Info.text(`${selectedCharacter.charName}`);
+                    docArena.empty();
+                }
+                else {
+                    console.log(ChosenChallenger);
+                    return;
+                }
+            }
+            counter++;
+
+        });
+    };
+
+CreateRoster();
+selection();
+
+});
