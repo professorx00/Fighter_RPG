@@ -1,10 +1,3 @@
-body{
-
-}
-li{
-    padding: 2px;
-}
-
 div.container{
     margin-top: 2%;
     margin-left: auto;
@@ -40,15 +33,13 @@ div.challengerContainer{
 img.challengerImg{
     max-width: 150px;
 }
-div.character{
-    padding: 4px;
-}
 div.arena{
     background-color: green;
     grid-column-start: 1;
     grid-column-end:13;
     grid-row-start: 3;
     grid-row-end: 9;
+    height: 100%;
 }
 div.controls{
     
@@ -67,9 +58,7 @@ div.playerInfo{
     display:flex;
     flex-direction: row;
 }
-#playerImage{
-    margin: 2%;
-}
+
 ul.playerList{
     /* display:none; */
     list-style: none;
@@ -81,19 +70,31 @@ div.character{
     text-align: left;
     margin-left: 10px;
     margin-right: 10px;
+    padding: 4px;
+    max-width: 150px;
 
 }
-.charImgSelect{
+div.charInfo{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 4px;
+    max-width: 150px
+}
+img.charImgSelect{
     max-width: 150px;
 }
-
-div.charSelect{
+div.charRoster{
     display:grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-
+div.none{
+    display: none;
+}
 
 /* Button CSS*/
 .button {
@@ -130,9 +131,4 @@ div.charSelect{
 #attack{
     display:none;
 }
-#defend{
-    display:none;
-}
-#special{
-    display:none;
-}
+
