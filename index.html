@@ -6,6 +6,8 @@
     <title>Smash Brothers: Turn Base Fighter</title>
     <meta name="description" content="smash brothers turn base">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
     <script src="http://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
         crossorigin="anonymous"></script>
@@ -13,20 +15,30 @@
 
 <body>
     <div class="container">
-        <div class="player" id="playerArea">
-            Player
-        </div>
-        <div class="challengers">
-            <div class="challengerArea" id="challengerArea">
-                Challengers
+        <div class="row">
+            <div class="col-md-4 ">
+                <div class="player" id="playerArea"><h1>Player</h1></div>
+            </div>
+            <div class="col-md-6">
+                <div class="container-fluid d-flex flex-column" >
+                    <h1>Challengers</h1>
+                    <div id="challengerArea">
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="arena" id="arena">
-            Fighting Area
+        <div class="row ">
+            <div class="col-md-12 controls d-flex flex-row">
+                    <a href="#" id="attack" class="btn btn-primary">Attack</a>
+            </div>
         </div>
-        <div class="controls">
-            <a href="#" id="attack" class="button">Attack</a>
+        <div class="row">
+            <div class="col-md-12 d-flex flex-row">
+                <div class="arena container-fluid" id="arena"> Fighting Area</div>
+            </div>
         </div>
+
+
     </div>
     <script src="./scripts/script.js"></script>
 </body>
