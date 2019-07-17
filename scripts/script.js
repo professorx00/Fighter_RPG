@@ -128,7 +128,7 @@ $(document).ready(function () {
     const CreateRoster = function () {
         docArena.empty();
         // create a roster that is displayed in arena for choice picking
-        roster = $("<div>").addClass("charRoster d-flex flex-row")
+        roster = $("<div>").addClass("charRoster container-fluid")
         docArena.append(roster);
         // generates the actual fighter Icons
         $.each(fighters, function (i, item) {

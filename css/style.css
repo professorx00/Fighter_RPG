@@ -3,6 +3,11 @@
     flex-direction: row;
 
 }
+div.charRoster{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    
+}
 #playerArea{
     background-color: red;
 }
