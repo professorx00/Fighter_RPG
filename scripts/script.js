@@ -64,14 +64,13 @@ $(document).ready(function () {
             lgImg: "./imgs/250px-MegaMan.png"
         },
     };
-    // const fighterCount = Object.keys(fighters).length;
-
+    
     const CreateRoster = function () {
         docArena.empty();
         // create a roster that is displayed in arena for choice picking
         roster = $("<div>").addClass("charRoster d-flex flex-row")
         docArena.append(roster);
-       
+        // generates the actual fighter Icons
         $.each(fighters, function (i, item) {
             if (fighters[i] !== player) {
                     let character = $("<div>").addClass(`rostercharacter character ${fighters[i].charName} d-flex flex-column `).attr("data-char", fighters[i].keyInfo);
@@ -83,7 +82,7 @@ $(document).ready(function () {
         });
 
     };
-    //Chooses the Hero
+    //Helper Function for the Hero Add to Player Area Function
     function addHeroInfo(hero, docPlayerInfo) {
         let docPlayerChar = $("<div>").attr("id", "PlayerChar").text(hero.charName).addClass("infoName");
         let docPlayerHealth = $("<div>").attr("id", "PlayerHealth").text(hero.playerHealth).addClass("infoHealth");
@@ -101,6 +100,7 @@ $(document).ready(function () {
         playerAttack = hero.playerAttack;
         playerHealth = hero.playerHealth;
     }
+    //Add Choosen Hero to the Player Area
     const heroAddtoPlayerArea = function (hero) {
         let docPlayer = $("<div>").addClass("playerInfo d-flex flex-row");
         let docPlayerImg = $("<img>").attr("src", hero.smImg).addClass("charImgSelect");
@@ -122,18 +122,19 @@ $(document).ready(function () {
         let docEnemy = $("<div>").addClass("Enemies ").attr("data-enemy", enemy.keyInfo);
         let docEnemyImg = $("<img>").attr("src", enemy.smImg).addClass("charImgSelect").attr("data-enemy", enemy.keyInfo);
         let docEnemyInfo = $("<div>").addClass("EnemyInfo ");
+        //sets the enemies and removes the rest 
         switch (num) {
-            case 0:
+            case 0://1st Enemy
                 challengers.push(chal);
                 SelectEnemy(enemy, docEnemyInfo, docEnemy, docEnemyImg);
                 docChallengerArea.append(docEnemy);
                 break;
-            case 1:
+            case 1://Second Enemy
                 challengers.push(chal);
                 SelectEnemy(enemy, docEnemyInfo, docEnemy, docEnemyImg);
                 docChallengerArea.append(docEnemy);
                 break;
-            case 2:
+            case 2://Third Enemy
                 challengers.push(chal);
                 SelectEnemy(enemy, docEnemyInfo, docEnemy, docEnemyImg);
                 docChallengerArea.append(docEnemy);
@@ -142,6 +143,7 @@ $(document).ready(function () {
                 break;
         }
     }
+    //creates a character Block for Fight Squence
     function createChalBlock(fighterBlk) {
         docCharBlock = $("<div>").attr("data-char", fighterBlk.keyInfo);
         docCharBlkImg = $("<img>").attr("src", fighterBlk.lgImg).addClass("lgcharImgSelect");
@@ -166,21 +168,7 @@ $(document).ready(function () {
         }
 
     }
-
-
-    function createFighter(fighter) {
-        fightChal = fighters[fighter];
-        btnAttack.attr("data-enemy", fightChal.keyInfo);
-        docFightRight = createChalBlock(fightChal).addClass(`col-md-6 d-flex flex-column ${fightChal.keyInfo}`);
-        docFightLeft = createChalBlock(player).addClass(`col-md-6 d-flex flex-column ${player.keyInfo}`);
-        docArena.append(docFightLeft);
-        docArena.append(docFightRight);
-        docArena.addClass("Fight");
-        fighting = true;
-        return [docFightRight, docFightLeft]
-
-    }
-    //on click for challengers
+    //Starts the fight after Roster Choice
     function startFight() {
         $(".Enemies").on("click", function (event) {
             _this = $(this)
@@ -194,7 +182,20 @@ $(document).ready(function () {
         })
 
     }
-    //on click for attack
+    // Create fighters for the fight
+    function createFighter(fighter) {
+        fightChal = fighters[fighter];
+        btnAttack.attr("data-enemy", fightChal.keyInfo);
+        docFightRight = createChalBlock(fightChal).addClass(`col-md-6 d-flex flex-column ${fightChal.keyInfo}`);
+        docFightLeft = createChalBlock(player).addClass(`col-md-6 d-flex flex-column ${player.keyInfo}`);
+        docArena.append(docFightLeft);
+        docArena.append(docFightRight);
+        docArena.addClass("Fight");
+        fighting = true;
+        return [docFightRight, docFightLeft]
+
+    }
+
     // Starts the game
     const Initalize = function () {
         CreateRoster();
@@ -234,7 +235,7 @@ $(document).ready(function () {
 
     })
 
-
+    // Action Button of the Attack
     btnAttack.on("click", function (event) {
         enemyKey = btnAttack.attr("data-enemy");
         playerkey = btnAttack.attr("data-player");
@@ -281,10 +282,6 @@ $(document).ready(function () {
         }
 
     })
-
-
-
-    //startGame function
 
 
 });//end of Document Object
