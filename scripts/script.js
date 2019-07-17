@@ -4,17 +4,18 @@ $(document).ready(function () {
     const docArena = $("#arena");
     const docPlayerArea = $("#playerArea");
     const docChallengerArea = $("#challengerArea").addClass("d-flex flex-row");
-    const btnAttack = $("#attack");
-
+    const btnAttack = $("#attack").css("display","none");
+    let fighting = false;
     let player = null;
     let challengers = [];
+    let counter = 0;
 
     let enemyAttackPow;
     let enemyHealth;
 
     let playerHealth;
     let playerAttack;
-
+    let attack;
 
 
     //Fighter Object
@@ -70,10 +71,8 @@ $(document).ready(function () {
             lgImg: "./imgs/250px-MegaMan.png"
         },
     };
-    const fighterCount = Object.keys(fighters).length;//number of fighters
+    // const fighterCount = Object.keys(fighters).length;
 
-    //global FUNctions
-    //creates Roster
     const CreateRoster = function () {
         docArena.empty();
         // create a roster that is displayed in arena for choice picking
@@ -103,6 +102,7 @@ $(document).ready(function () {
         docPlayerInfo.append(docPlayerHealth);
         docPlayerInfo.append(docbaseInfo3);
         docPlayerInfo.append(docPlayerAttack);
+        btnAttack.attr("data-player",hero.keyInfo);
         playerAttack = hero.playerAttack;
         playerHealth = hero.playerHealth;
     }
@@ -121,6 +121,7 @@ $(document).ready(function () {
         docEnemyInfo.append(docEnemyName);
         docEnemy.append(docEnemyImg);
         docEnemy.append(docEnemyInfo);
+        // btnAttack.attr("data-enemy", enemy.keyInfo);
     }
     const fighterAddtoChallengerArea = function (chal, num) {
         let enemy = chal;
@@ -170,11 +171,7 @@ $(document).ready(function () {
         }
 
     })
-    function createAttackButton(){
-        attackButton = $("<a>").addClass("btn btn-primary").attr("id","attack").text("ATTACK!");
-        $(".controls").append(attackButton);
 
-    }
     function createChalBlock(fighterBlk) {
         docCharBlock = $("<div>").attr("data-char", fighterBlk.keyInfo);
         docCharBlkImg = $("<img>").attr("src", fighterBlk.lgImg).addClass("lgcharImgSelect");
@@ -183,46 +180,92 @@ $(document).ready(function () {
             docCharBlkName = $("<span>").text("Name: " + fighterBlk.charName).attr("id", "currentChal");
             docCharBlkhealth = $("<span>").text(" Health: " + fighterBlk.enemyHealth).attr("id", "currentChalHealth");
             docCharBlkattack = $("<span>").text(" Attack: " + fighterBlk.enemyAttack).attr("id", "currentChalAttack");
-            enemyAttackPow = fighterBlk.enemyAttack;
-            enemyHealth = fighterBlk.enemyHealth;
             docCharBlkInfo.append(docCharBlkName, docCharBlkhealth, docCharBlkattack);
-            docCharBlock.append(docCharBlkImg,docCharBlkInfo);
+            docCharBlock.append(docCharBlkImg, docCharBlkInfo);
             return docCharBlock;
         }
-        else{
+        else {
             docCharBlkName = $("<span>").text("Name: " + fighterBlk.charName).attr("id", "currentChal");
             docCharBlkhealth = $("<span>").text(" Health: " + fighterBlk.playerHealth).attr("id", "currentChalHealth");
             docCharBlkattack = $("<span>").text(" Attack: " + fighterBlk.playerAttack).attr("id", "currentChalAttack");
             playerAttack = fighterBlk.enemyAttack;
             playerHealth = fighterBlk.enemyHealth;
             docCharBlkInfo.append(docCharBlkName, docCharBlkhealth, docCharBlkattack);
-            docCharBlock.append(docCharBlkImg,docCharBlkInfo );
+            docCharBlock.append(docCharBlkImg, docCharBlkInfo);
             return docCharBlock;
         }
 
     }
 
-    //on click for challengers
+    function gameResolve(status){
+        if(status){
+            console.log("won");
+        }
+        else{
+            console.log("lost")
+        }
+        Initalize();
+    }
+
     function createFighter(fighter) {
         fightChal = fighters[fighter];
+        btnAttack.attr("data-enemy",fightChal.keyInfo);
         docFightRight = createChalBlock(fightChal).addClass("col-md-6 d-flex flex-column");
         docFightLeft = createChalBlock(player).addClass("col-md-6 d-flex flex-column");
         docArena.append(docFightLeft);
         docArena.append(docFightRight);
         docArena.addClass("Fight");
+        fighting = true;
+        return [docFightRight, docFightLeft]
 
     }
+    //on click for challengers
     function startFight() {
         $(".Enemies").on("click", function (event) {
             _this = $(this)
             fighter = _this.attr("data-enemy");
-            createFighter(fighter);
-            createAttackButton();
+            if (!fighting) {
+                let fighters = createFighter(fighter);
+                btnAttack.css("display","").attr("data-player",$(fighters[1][0]).attr("data-char")).attr("data-enemy",$(fighters[0][0]).attr("data-char"));
+                _this.remove();
+            }
+
         })
 
     }
-
     //on click for attack
+    btnAttack.on("click", function (event) {
+            enemyKey = btnAttack.attr("data-enemy");
+            playerkey = btnAttack.attr("data-player");
+            enemy = fighters[enemyKey];
+            playerLog = fighters[playerkey];
+            ehealth = enemy.enemyHealth;
+            phealth = playerLog.playerHealth;
+            eAttack = enemy.enemyAttack;
+            pAttack = playerLog.playerAttack;
+            ehealth = ehealth-pAttack;
+            phealth = phealth-eAttack;
+            console.log("enemy Health" +ehealth);
+            enemy.enemyHealth = ehealth;
+            console.log("Player Health" + phealth)
+            playerLog.playerHealth = phealth;
+            playerLog.playerAttack = pAttack + Math.floor(Math.random()*30 +15)
+            if(phealth<0){
+                // gameResolve(false);// your health ran out
+                console.log(" Player is Dead ")
+            }
+            else if(ehealth<0 && counter==3){
+                console.log("All Enimies are dead and player has won")
+            }
+            else if(ehealth<0 && counter<3){
+                console.log("Player is Alive but there is more Enemies")
+                counter++;
+                
+            }
+
+        })
+
+
 
     //startGame function
 
