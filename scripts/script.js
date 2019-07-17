@@ -22,50 +22,50 @@ $(document).ready(function () {
         char1: {
             keyInfo: "char1",
             charName: "Charizard",
-            playerHealth: Math.floor(Math.random() * 150 + 100),
-            playerAttack: 10,
+            playerHealth: Math.floor(Math.random() * 150 + 95),
+            playerAttack: Math.floor(Math.random() * 20 + 10),
             enemyAttack: 10,
-            enemyHealth: 100,
+            enemyHealth: Math.floor(Math.random() * 150 + 95),
             smImg: "./imgs/150px-Charizard.png",
             lgImg: "./imgs/250px-Charizard.png"
         },
         char2: {
             keyInfo: "char2",
             charName: "Donkey Kong",
-            playerHealth: 100,
-            enemyHealth: 100,
-            playerAttack: 10,
-            enemyAttack: 10,
+            playerHealth: Math.floor(Math.random() * 150 + 150),
+            enemyHealth: Math.floor(Math.random() * 150 + 150),
+            playerAttack: Math.floor(Math.random() * 20 + 5),
+            enemyAttack: Math.floor(Math.random() * 20 + 4),
             smImg: "./imgs/150px-DonkeyKong.png",
             lgImg: "./imgs/250px-DonkeyKong.png"
         },
         char3: {
             keyInfo: "char3",
             charName: "Kirby",
-            playerHealth: 100,
-            enemyHealth: 100,
-            playerAttack: 10,
-            enemyAttack: 10,
+            playerHealth: Math.floor(Math.random() * 150 + 60),
+            enemyHealth: Math.floor(Math.random() * 150 + 60),
+            playerAttack: Math.floor(Math.random() * 20 + 15),
+            enemyAttack: Math.floor(Math.random() * 20 + 15),
             smImg: "./imgs/150px-Kirby.png",
             lgImg: "./imgs/250px-Kirby.png"
         },
         char4: {
             keyInfo: "char4",
             charName: "Mario",
-            playerHealth: 100,
-            enemyHealth: 100,
-            playerAttack: 10,
-            enemyAttack: 10,
+            playerHealth: Math.floor(Math.random() * 150 + 90),
+            enemyHealth: Math.floor(Math.random() * 150 + 90),
+            playerAttack: Math.floor(Math.random() * 20 + 20),
+            enemyAttack: Math.floor(Math.random() * 20 + 20),
             smImg: "./imgs/150px-Mario.png",
             lgImg: "./imgs/250px-Mario.png"
         },
         char5: {
             keyInfo: "char5",
             charName: "Mega Man",
-            playerHealth: 100,
-            enemyHealth: 100,
-            playerAttack: 10,
-            enemyAttack: 10,
+            playerHealth: Math.floor(Math.random() * 150 + 105),
+            enemyHealth: Math.floor(Math.random() * 150 + 105),
+            playerAttack: Math.floor(Math.random() * 20 + 8),
+            enemyAttack: Math.floor(Math.random() * 20 + 8),
             smImg: "./imgs/150px-MegaMan.png",
             lgImg: "./imgs/250px-MegaMan.png"
         },
@@ -117,7 +117,7 @@ $(document).ready(function () {
     };
     // choose the Challengers
     function SelectEnemy(enemy, docEnemyInfo, docEnemy, docEnemyImg) {
-        let docEnemyName = $("<span>").text(enemy.charName).attr("data-key",enemy.keyInfo);
+        let docEnemyName = $("<span>").text(enemy.charName).attr("data-key", enemy.keyInfo);
         docEnemyInfo.append(docEnemyName);
         docEnemy.append(docEnemyImg);
         docEnemy.append(docEnemyInfo);
@@ -161,28 +161,63 @@ $(document).ready(function () {
         if (!player) {
             player = fighters[_this.attr("data-char")];
             heroAddtoPlayerArea(fighters[_this.attr("data-char")]);
-            _this.addClass("none");
+            _this.remove();
         }
         else {
             let num = challengers.length;
             fighterAddtoChallengerArea(fighters[_this.attr("data-char")], num);
-            _this.addClass("none");
+            _this.remove();
         }
 
     })
+    function createAttackButton(){
+        attackButton = $("<a>").addClass("btn btn-primary").attr("id","attack").text("ATTACK!");
+        $(".controls").append(attackButton);
+
+    }
+    function createChalBlock(fighterBlk) {
+        docCharBlock = $("<div>").attr("data-char", fighterBlk.keyInfo);
+        docCharBlkImg = $("<img>").attr("src", fighterBlk.lgImg).addClass("lgcharImgSelect");
+        docCharBlkInfo = $("<div>").addClass("charInfo");
+        if (player !== fighterBlk) {
+            docCharBlkName = $("<span>").text("Name: " + fighterBlk.charName).attr("id", "currentChal");
+            docCharBlkhealth = $("<span>").text(" Health: " + fighterBlk.enemyHealth).attr("id", "currentChalHealth");
+            docCharBlkattack = $("<span>").text(" Attack: " + fighterBlk.enemyAttack).attr("id", "currentChalAttack");
+            enemyAttackPow = fighterBlk.enemyAttack;
+            enemyHealth = fighterBlk.enemyHealth;
+            docCharBlkInfo.append(docCharBlkName, docCharBlkhealth, docCharBlkattack);
+            docCharBlock.append(docCharBlkImg,docCharBlkInfo);
+            return docCharBlock;
+        }
+        else{
+            docCharBlkName = $("<span>").text("Name: " + fighterBlk.charName).attr("id", "currentChal");
+            docCharBlkhealth = $("<span>").text(" Health: " + fighterBlk.playerHealth).attr("id", "currentChalHealth");
+            docCharBlkattack = $("<span>").text(" Attack: " + fighterBlk.playerAttack).attr("id", "currentChalAttack");
+            playerAttack = fighterBlk.enemyAttack;
+            playerHealth = fighterBlk.enemyHealth;
+            docCharBlkInfo.append(docCharBlkName, docCharBlkhealth, docCharBlkattack);
+            docCharBlock.append(docCharBlkImg,docCharBlkInfo );
+            return docCharBlock;
+        }
+
+    }
 
     //on click for challengers
-    function createFighter(fighter){
+    function createFighter(fighter) {
         fightChal = fighters[fighter];
-        console.log(fightChal);
-        console.log(playerAttack,playerHealth)
+        docFightRight = createChalBlock(fightChal).addClass("col-md-6 d-flex flex-column");
+        docFightLeft = createChalBlock(player).addClass("col-md-6 d-flex flex-column");
+        docArena.append(docFightLeft);
+        docArena.append(docFightRight);
+        docArena.addClass("Fight");
 
     }
     function startFight() {
         $(".Enemies").on("click", function (event) {
-            _this =$(this)
+            _this = $(this)
             fighter = _this.attr("data-enemy");
             createFighter(fighter);
+            createAttackButton();
         })
 
     }

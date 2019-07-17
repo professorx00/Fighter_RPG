@@ -1,6 +1,21 @@
-.none{
-    display: none;
-}
+
 #playerArea{
     background-color: red;
+}
+div.none{
+    display: none;
+}
+div.Fight{
+    display: flex;
+    flex-direction: row;
+}
+img.charImgSelect{
+    max-width: 150px;
+}
+img.lgcharImgSelect{
+    max-width: 250px;
+}
+div.charInfo{
+    display: flex;
+    flex-direction: column;
 }
