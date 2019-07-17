@@ -1,4 +1,8 @@
+#arena{
+    display:flex;
+    flex-direction: row;
 
+}
 #playerArea{
     background-color: red;
 }

@@ -63,6 +63,66 @@ $(document).ready(function () {
             smImg: "./imgs/150px-MegaMan.png",
             lgImg: "./imgs/250px-MegaMan.png"
         },
+        char6: {
+            keyInfo: "char6",
+            charName: "Peach",
+            playerHealth: 100,
+            enemyHealth: 100,
+            playerAttack: 10,
+            enemyAttack: 10,
+            smImg: "./imgs/150px-Peach.png",
+            lgImg: "./imgs/250px-Peach.png",
+            pSelect: false,
+            eSelect: false
+        },
+        char7: {
+            keyInfo: "char7",
+            charName: "Pikachu",
+            playerHealth: 100,
+            enemyHealth: 100,
+            playerAttack: 10,
+            enemyAttack: 10,
+            smImg: "./imgs/150px-Pikachu.png",
+            lgImg: "./imgs/250px-Pikachu.png",
+            pSelect: false,
+            eSelect: false
+        },
+        char8: {
+            keyInfo: "char8",
+            charName: "Pit",
+            playerHealth: 100,
+            enemyHealth: 100,
+            playerAttack: 10,
+            enemyAttack: 10,
+            smImg: "./imgs/150px-Pit.png",
+            lgImg: "./imgs/250px-Pit.png",
+            pSelect: false,
+            eSelect: false
+        },
+        char9: {
+            keyInfo: "char9",
+            charName: "Samus",
+            playerHealth: 100,
+            enemyHealth: 100,
+            playerAttack: 10,
+            enemyAttack: 10,
+            smImg: "./imgs/150px-Samus.png",
+            lgImg: "./imgs/250px-Samus.png",
+            pSelect: false,
+            eSelect: false
+        },
+        char0: {
+            keyInfo: "char0",
+            charName: "Link",
+            playerHealth: 100,
+            enemyHealth: 100,
+            playerAttack: 10,
+            enemyAttack: 10,
+            smImg: "./imgs/150px-YoungLink.png",
+            lgImg: "./imgs/250px-YoungLink.png",
+            pSelect: false,
+            eSelect: false
+        }
     };
     
     const CreateRoster = function () {
@@ -103,6 +163,8 @@ $(document).ready(function () {
     //Add Choosen Hero to the Player Area
     const heroAddtoPlayerArea = function (hero) {
         let docPlayer = $("<div>").addClass("playerInfo d-flex flex-row");
+        console.log(hero)
+        console.log(hero.smImg);
         let docPlayerImg = $("<img>").attr("src", hero.smImg).addClass("charImgSelect");
         let docPlayerInfo = $("<div>").addClass("charInfo");
         addHeroInfo(hero, docPlayerInfo);
@@ -201,6 +263,13 @@ $(document).ready(function () {
         CreateRoster();
     }
 
+    const gameOver = function(state){
+        if(state){
+            docArena.empty();
+            let message = $() 
+        }
+    }
+
 
     Initalize();
     //on click for Roster Characters
@@ -259,12 +328,20 @@ $(document).ready(function () {
         if (phealth < 0) {
             // gameResolve(false);// your health ran out
             console.log(" Player is Dead ")
+            gameOver(false);
+            
+
         }
         else if (ehealth < 0 && counter == 3) {
             console.log("All Enimies are dead and player has won")
+            counter++
+            gameOver(false);
+            
+            
         }
         else if (ehealth < 0 && counter < 3) {
             console.log("Player is Alive but there is more Enemies")
+            console.log(counter)
             counter++;
             docArena.empty();
             fighting = false;
