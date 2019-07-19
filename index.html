@@ -9,35 +9,53 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
-    <script src="http://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-4 ">
-                <div class="player" id="playerArea"><h1>Player</h1></div>
+            <div class="col-md-12">
+                <img src="./imgs/logo.png" class="logo">
+                <span id="logoTitle">Super Smash Brothers RPG</span>
             </div>
-            <div class="col-md-6 challengerAreaContainer">
-                <div class="container-fluid d-flex flex-column challengerAreaContainer" >
-                    <h1>Challengers</h1>
+        </div>
+        <div class="row">
+            <div class="container head">
+                <div class="col-md-4 pArea">
+                    <div class="player m-0 p-0" id="playerArea">
+                        <h1>Player</h1>
+                    </div>
+                </div>
+                <div class="col-md-6 challengerAreaContainer">
+                    <div class="container-fluid challengerAreaContainer m-0 p-0">
+                        <h1>Challengers</h1>
                     <div id="challengerArea">
+                    </div>
                     </div>
                 </div>
             </div>
+
         </div>
-       
+
         <div class="row">
-            <div class="col-md-12 d-flex flex-row">
-                <div class="arena container-fluid jumbotron jumboton-fluid" id="arena"> Fighting Area</div>
+            <div class="col-md-12 d-flex flex-row mt-3 bgarena">
+                <div class="arena container-fluid" id="arena"> Fighting Area</div>
             </div>
         </div>
-         <div class="row ">
+        <div class="row ">
             <div class="col-md-12 controls text-center p-3">
                 <a href="#" class="btn btn-primary" id="attack">ATTACK!</a>
                 <a href="#" class="btn btn-primary" id="Restart">Restart</a>
             </div>
         </div>
+        <div class="row ">
+                <div class="col-md-12 controls text-center p-3">
+                    <div class="btn btn-primary">Wins: <span id="win"> 0 </span></div>
+                    <div class="btn btn-primary">Losses: <span id="loss"> 0 </span> </div>
+                </div>
+            </div>
 
 
     </div>

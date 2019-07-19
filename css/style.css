@@ -1,31 +1,285 @@
-#arena{
-    display:flex;
-    flex-direction: row;
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:900i&display=swap');
+body {
+    background-color: #175676bb;
+}
 
+div.head {
+    display: flex;
+    flex-direction: row;
+    background-color: #175676bb;
+    width: 100%;
 }
-div.charRoster{
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    
+
+div.head h1 {
+    font-size: 2rem;
 }
-#playerArea{
-    background-color: red;
-}
-div.none{
-    display: none;
-}
-div.Fight{
+
+#challengerArea {
     display: flex;
     flex-direction: row;
 }
-img.charImgSelect{
+
+div.pArea {
+    border-right: 10px #175676 solid;
+}
+
+img.logo {
+    width: 10%;
+    margin-bottom: 1px;
+}
+
+#logoTitle {
+    font-size: 4rem;
+    color: white;
+    text-shadow: 1px 1px 2px #306B34, 0 0 25px #FD151B, 0 0 5px #175676bb;
+    ;
+}
+
+a.btn, a.btn-primary, div.btn {
+    background-color: #C3EB78;
+    background: #C3EB78;
+    color: #175676;
+}
+
+#arena {
+    display: flex;
+    flex-direction: row;
+}
+
+div.bgarena {
+    background: url("../imgs/bg.png");
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+div.charRoster {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+div.none {
+    display: none;
+}
+
+div.Fight {
+    display: flex;
+    flex-direction: row;
+}
+
+img.charImgSelect {
     max-width: 150px;
 }
-img.lgcharImgSelect{
+
+img.lgcharImgSelect {
     max-width: 250px;
 }
-div.charInfo{
+
+div.charInfo {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+div.rostercharacter {
+    padding-left: 15%;
+    padding-right: 15%;
+    margin: 3px;
+}
+
+span.rosterHealth {
+    background-color: #175676bb;
+    font-weight: 600;
+    color: #F3FFC6;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.322)
+}
+
+span.rosterName {
+    background-color: #175676bb;
+    font-weight: 900;
+    color: #F3FFC6;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.322)
+}
+
+img.rosterImg {
+    border: #306B34 4px solid;
+}
+
+img.rosterImg:hover {
+    border: #FD151B 4px solid;
+}
+
+span.challangerName {
+    font-size: 1.5rem;
+    font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+#currentChalHealth, #currentChalAttack {
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.322);
+    background-color: #175676bb;
+}
+
+#currentChal {
+    font-weight: bolder;
+    color: #F3FFC6;
+    font-size: 2rem;
+    background-color: #175676bb;
+}
+
+span.CCalAttack {
+    font-weight: bold;
+    color: #FD151B;
+    font-size: 1.5rem;
+}
+
+span.CChalHealth {
+    font-weight: bold;
+    color: #C3EB78;
+    font-size: 1.5rem;
+}
+
+#Defeat {
+    color: #fff;
+    font-size: 8em;
+    font-weight: bold;
+    font-family: Helvetica;
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
+}
+
+div.gameOver {
+    text-align: center;
+    width: 100%;
+    color: #fff;
+    font-size: 6em;
+    font-weight: bold;
+    font-family: Helvetica;
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
+}
+
+div.playerInfo {
     display: flex;
     flex-direction: column;
 }
 
+@media screen and (max-width: 990px) {
+    div.charRoster {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    div.charRoster {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    div.bgarena {
+        background: url("../imgs/bg.png");
+        background-size: auto;
+    }
+    #challengerArea {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .lgcharImgSelect {
+        width: 150px;
+    }
+    .rosterImg {
+        width: 100px;
+    }
+    .charImgSelect {
+        width: 100px;
+    }
+    img.logo {
+        width: 6%;
+        margin-bottom: 1px;
+    }
+    #logoTitle {
+        font-size: 2rem;
+        color: white;
+        text-shadow: 1px 1px 2px #306B34, 0 0 25px #FD151B, 0 0 5px #175676bb;
+        ;
+    }
+    #Defeat {
+        color: #fff;
+        font-size: 4em;
+        font-weight: bold;
+        font-family: Helvetica;
+        text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
+    }
+    div.gameOver {
+        text-align: center;
+        width: 100%;
+        color: #fff;
+        font-size: 4em;
+        font-weight: bold;
+        font-family: Helvetica;
+        text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
+    }
+    .charImgSelect {
+        width: 100px;
+    }
+    div.playerInfo {
+        display: flex;
+        flex-direction: column;
+    }
+    @media screen and (max-width: 460px) {
+        h1 {
+            font-size: 2rem;
+        }
+        div.charRoster {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        div.bgarena {
+            background: url("../imgs/bg.png");
+            background-size: auto;
+        }
+        #challengerArea {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        .lgcharImgSelect {
+            width: 100px;
+        }
+        .rosterImg {
+            width: 75px;
+        }
+        .charImgSelect {
+            width: 75px;
+        }
+        img.logo {
+            width: 6%;
+            margin-bottom: 1px;
+        }
+        #logoTitle {
+            font-size: 1rem;
+            color: white;
+            text-shadow: 1px 1px 2px #306B34, 0 0 25px #FD151B, 0 0 5px #175676bb;
+            ;
+        }
+        #Defeat {
+            color: #fff;
+            font-size: 2em;
+            font-weight: bold;
+            font-family: Helvetica;
+            text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
+        }
+        div.gameOver {
+            text-align: center;
+            width: 100%;
+            color: #fff;
+            font-size: 2em;
+            font-weight: bold;
+            font-family: Helvetica;
+            text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
+        }
+        div.rostercharacter {
+            padding-left: 5%;
+            padding-right: 5%;
+            margin: 0px;
+        }
+        .charImgSelect {
+            width: 75px;
+        }
+    }
+}

@@ -3,14 +3,16 @@ $(document).ready(function () {
     // pregenerate Document Objects
     const docArena = $("#arena");
     const docPlayerArea = $("#playerArea");
-    const docChallengerArea = $("#challengerArea").addClass("d-flex flex-row");
+    const docChallengerArea = $("#challengerArea");
     const btnAttack = $("#attack").css("display", "none");
     const btnRestart = $("#Restart").css("display", "none");
+    const docWin = $("#win");
+    const docLoss = $("#loss");
     let fighting = false;
     let player = null;
     let challengers = [];
-    let counter = 0;
-    let enemyOnField = false;
+    let winnum = 0;
+    let lossnum = 0;
 
 
     //Fighter Object
@@ -127,11 +129,11 @@ $(document).ready(function () {
         $.each(fighters, function (i, item) {
 
             if (fighters[i] !== player) {
-                // console.log(fighters[i].charName,fighters[i].playerHealth,fighters[i].enemyHealth,fighters[i].keyInfo)
                 let character = $("<div>").addClass(`rostercharacter character ${fighters[i].charName} d-flex flex-column `).attr("data-char", fighters[i].keyInfo);
                 let charImg = $("<img>").addClass("charImgSelect rosterImg").attr("src", fighters[i].smImg);
-                let charDetails = $("<span>").text(`${fighters[i].charName} Health:${fighters[i].playerHealth}`).addClass("rosterHealth").attr("data-ehealth", fighters[i].enemyHealth);
-                character.append(charImg, charDetails);
+                let charDetails = $("<span>").text(`${fighters[i].charName}`).addClass("rosterName");
+                let rhealth = $("<span>").text(`Health:${fighters[i].playerHealth}`).addClass("rosterHealth").attr("data-ehealth", fighters[i].enemyHealth);
+                character.append(charImg, charDetails, rhealth);
                 roster.append(character);
             }
         });
@@ -157,7 +159,7 @@ $(document).ready(function () {
     }
     //Add Choosen Hero to the Player Area
     const heroAddtoPlayerArea = function (hero) {
-        let docPlayer = $("<div>").addClass("playerInfo d-flex flex-row");
+        let docPlayer = $("<div>").addClass("playerInfo");
         let docPlayerImg = $("<img>").attr("src", hero.smImg).addClass("charImgSelect");
         let docPlayerInfo = $("<div>").addClass("charInfo");
         addHeroInfo(hero, docPlayerInfo);
@@ -167,13 +169,12 @@ $(document).ready(function () {
     };
     // choose the Challengers
     const SelectEnemy = function (enemy, docEnemyInfo, docEnemy, docEnemyImg) {
-        let docEnemyName = $("<span>").text(enemy.charName).attr("data-key", enemy.keyInfo);
+        let docEnemyName = $("<span>").text(enemy.charName).attr("data-key", enemy.keyInfo).addClass("challangerName");
         docEnemyInfo.append(docEnemyName);
         docEnemy.append(docEnemyImg);
         docEnemy.append(docEnemyInfo);
     }
     const fighterAddtoChallengerArea = function (chal, num) {
-        console.log("fighterAddtoChallengerArea");
         let enemy = chal;
         let docEnemy = $("<div>").addClass("Enemies ").attr("data-enemy", enemy.keyInfo);
         let docEnemyImg = $("<img>").attr("src", enemy.smImg).addClass("charImgSelect").attr("data-enemy", enemy.keyInfo);
@@ -201,22 +202,21 @@ $(document).ready(function () {
     }
     //creates a character Block for Fight Squence
     function createChalBlock(fighterBlk) {
-        console.log("createChalBlock");
         docCharBlock = $("<div>").attr("data-char", fighterBlk.keyInfo);
         docCharBlkImg = $("<img>").attr("src", fighterBlk.lgImg).addClass("lgcharImgSelect");
         docCharBlkInfo = $("<div>").addClass("charInfo");
         if (player !== fighterBlk) {
-            docCharBlkName = $("<span>").text("Name: " + fighterBlk.charName).attr("id", "currentChal").addClass(`${fighterBlk.keyInfo}-Name`);
-            docCharBlkhealth = $("<span>").text(" Health: " + fighterBlk.enemyHealth).attr("id", "currentChalHealth").addClass(`${fighterBlk.keyInfo}-Health`);
-            docCharBlkattack = $("<span>").text(" Attack: " + fighterBlk.enemyAttack).attr("id", "currentChalAttack").addClass(`${fighterBlk.keyInfo}-Attack`);
+            docCharBlkName = $("<span>").text(fighterBlk.charName).attr("id", "currentChal").addClass(`${fighterBlk.keyInfo}-Name`);
+            docCharBlkhealth = $("<span>").text(" Health: " + fighterBlk.enemyHealth).attr("id", "currentChalHealth").addClass(`${fighterBlk.keyInfo}-Health CChalHealth`);
+            docCharBlkattack = $("<span>").text(" Attack: " + fighterBlk.enemyAttack).attr("id", "currentChalAttack").addClass(`${fighterBlk.keyInfo}-Attack CCalAttack`);
             docCharBlkInfo.append(docCharBlkName, docCharBlkhealth, docCharBlkattack);
             docCharBlock.append(docCharBlkImg, docCharBlkInfo);
             return docCharBlock;
         }
         else {
-            docCharBlkName = $("<span>").text("Name: " + fighterBlk.charName).attr("id", "currentChal").addClass(`${fighterBlk.keyInfo}-Name`);
-            docCharBlkhealth = $("<span>").text(" Health: " + fighterBlk.playerHealth).attr("id", "currentChalHealth").addClass(`${fighterBlk.keyInfo}-Health`);
-            docCharBlkattack = $("<span>").text(" Attack: " + fighterBlk.playerAttack).attr("id", "currentChalAttack").addClass(`${fighterBlk.keyInfo}-Attack`);
+            docCharBlkName = $("<span>").text(fighterBlk.charName).attr("id", "currentChal").addClass(`${fighterBlk.keyInfo}-Name`);
+            docCharBlkhealth = $("<span>").text(" Health: " + fighterBlk.playerHealth).attr("id", "currentChalHealth").addClass(`${fighterBlk.keyInfo}-Health CChalHealth`);
+            docCharBlkattack = $("<span>").text(" Attack: " + fighterBlk.playerAttack).attr("id", "currentChalAttack").addClass(`${fighterBlk.keyInfo}-Attack CCalAttack`);
             playerAttack = fighterBlk.enemyAttack;
             playerHealth = fighterBlk.enemyHealth;
             docCharBlkInfo.append(docCharBlkName, docCharBlkhealth, docCharBlkattack);
@@ -227,8 +227,6 @@ $(document).ready(function () {
     }
     //Starts the fight after Roster Choice
     function startFight() {
-        console.log("StartFight");
-        console.log("This is fighting" + fighting)
         $(".Enemies").on("click", function (event) {
             _this = $(this)
             fighter = _this.attr("data-enemy");
@@ -243,11 +241,11 @@ $(document).ready(function () {
     }
     // Create fighters for the fight
     function createFighter(fighter) {
-        console.log("createFighter");
         fightChal = fighters[fighter];
         btnAttack.attr("data-enemy", fightChal.keyInfo);
-        docFightRight = createChalBlock(fightChal).addClass(`col-md-6 d-flex flex-column ${fightChal.keyInfo}`);
-        docFightLeft = createChalBlock(player).addClass(`col-md-6 d-flex flex-column ${player.keyInfo}`);
+        $("#Defeat").remove();
+        docFightRight = createChalBlock(fightChal).addClass(`col-md-6 d-flex flex-column ${fightChal.keyInfo} fighter`);
+        docFightLeft = createChalBlock(player).addClass(`col-md-6 d-flex flex-column ${player.keyInfo} fighter`);
         docArena.append(docFightLeft);
         docArena.append(docFightRight);
         enemyOnField = true;
@@ -257,25 +255,29 @@ $(document).ready(function () {
 
     }
     const gameOver = function (state) {
-        console.log("gameOver");
+        console.log("gameOver" + state);
         if (state) {
-            console.log("this is player Health" + phealth);
-            console.log("this is enemy health" + ehealth);
             docArena.empty();
             $("div.playerInfo").empty();
-            let message = $("<span>").text("Won");
+            docArena.addClass("align-center")
+            let message = $("<div>").text("YOU HAVE DEFEATED ALL ENEMIES!").addClass("gameOver");
             docArena.append(message)
             btnRestart.css("display", "")
             btnAttack.css("display", "None")
+            winnum++;
+            docWin.text(" " + winnum + " ")
         }
         else {
-
             docArena.empty();
-            docChallengerArea.empty();
             $("div.playerInfo").empty();
-            let message = $("<span>").text("Lost");
+            docChallengerArea.empty();
+            docArena.addClass("text-center")
+            let message = $("<div>").text("YOU WERE DEFEATED!").addClass("gameOver");
             docArena.append(message)
             btnRestart.css("display", "")
+            btnAttack.css("display", "None")
+            lossnum++;
+            docLoss.text(" " + lossnum + " ")
 
         }
     }
@@ -284,17 +286,15 @@ $(document).ready(function () {
             fighters[i].playerHealth = Math.floor(Math.random() * 150 + 105);
             fighters[i].enemyHealth = Math.floor(Math.random() * 150 + 105);
             fighters[i].playerAttack = Math.floor(Math.random() * 20 + 8);
-            fighters[i].enemyHealth = Math.floor(Math.random() * 20 + 8);
+            fighters[i].enemyAttack = Math.floor(Math.random() * 20 + 8);
         });
     }
     // Starts the game
     const Initalize = function () {
         let control = 3;
-        console.log("Initalize");
         CreateRoster();
         //reCreate Roaster
         $(".rostercharacter").on("click", function (event) {
-            console.log("OnClick rostercharacters");
             const _this = $(this);
             if (!player) {
                 player = fighters[_this.attr("data-char")];
@@ -320,9 +320,12 @@ $(document).ready(function () {
                 _this.remove();
             }
         })
-        btnAttack.on("click", function (event) {
+        let eventLog = 0
+        let testArray = [];
 
-            console.log("OnClick Attack Button");
+        btnAttack.on("click", function (event) {
+            $("#Defeat").remove();
+            eventLog++
             enemyKey = btnAttack.attr("data-enemy");
             playerkey = btnAttack.attr("data-player");
             enemy = fighters[enemyKey];
@@ -331,54 +334,66 @@ $(document).ready(function () {
             phealth = playerLog.playerHealth;
             eAttack = enemy.enemyAttack;
             pAttack = playerLog.playerAttack;
-            ehealth = ehealth - pAttack;
-            phealth = phealth - eAttack;
+            console.log($(".fighter").length)
+            console.log($(".fighter"))
+            if ($(".fighter").length > 1) {
+                ehealth = ehealth - pAttack;
+                phealth = phealth - eAttack;
+                playerLog.playerAttack = pAttack + Math.floor(Math.random() * 10 + 4)
+            }
+
+            pAttack = playerLog.playerAttack;
             enemy.enemyHealth = ehealth;
             playerLog.playerHealth = phealth;
-            playerLog.playerAttack = pAttack + Math.floor(Math.random() * 10 + 8)
             $(`.${btnAttack.attr("data-player")}-Health`).text(`Health: ${phealth}`);
             $(`.${btnAttack.attr("data-player")}-Attack`).text(`Attack: ${pAttack}`);
             $(`.${btnAttack.attr("data-enemy")}-Health`).text(`Health: ${ehealth}`);
             $(`.${btnAttack.attr("data-enemy")}-Attack`).text(`Attack: ${eAttack}`);
+            $(".currentChalAttack").text(`Attack: ${pAttack}`);
+            $("#PlayerAttack").text(pAttack)
+            $("#PlayerHealth").text(phealth)
             if (enemyOnField = true) {
-                if (control > 1) {
-                    if (phealth <= 0) {
-                        console.log("player dead")
-                        console.log(phealth)
-                        console.log("this is control number" + control);
-                        gameOver(false)
-                        control = 3;
-                        return;
+                let matched = $("#challengerArea div.Enemies")
+                if (enemyOnField = true) {
+                    console.log(matched.length + "matched Length")
+                    if (phealth > 0) {
+                        if (ehealth <= 0) {
+                            if (matched.length == 0) {
+                                gameOver(true)
+                            }
+                            else {
+                                fighting = false;
+                                docArena.empty();
+                                docArena.append($("<div>").text(`You Defeated ${enemy.charName}`).attr("id", "Defeat").addClass("gameOver"))
+                            }
+                        }
                     }
-                    else if (ehealth < 1) {
-                        console.log("continue")
-                        console.log(ehealth)
-                        console.log("this is control number" + control);
-                        control--
-                        docArena.empty();
-                        fighting = false;
+                    else {
+                        // if (ehealth <= 0) {
+                        //     if (phealth > ehealth) {
+                        //         if (matched.length == 0) {
+                        //             gameOver(true)
+                        //         }
+                        //         else {
+                        //             gameOver(false)
+                        //         }
+
+                        //     }
+                        //     else {
+                        //         gameOver(false)
+                        //     }
+                        // }
+                        // else {
+                            gameOver(false);
+                        // }
                     }
-                }
-                else{
-                    console.log("continue")
-                    console.log("this is control number" + control);
-                    control--;
-                    gameOver(true)
-                    control=3;
+
                 }
             }
 
-            else {
-                console.log("enemy beaten")
-                console.log("this is control number" + control);
-                fighting = false;
-                gameOver(true);
-                return;
-            }
-
-        })
+        }).delay(300);
         btnRestart.on("click", function (event) {
-            console.log("OnClick Reset Button");
+            docArena.removeClass("text-center")
             $("div.playerInfo").empty();
             $("div.challengerArea").empty();
             docPlayerArea.css("display", "");
@@ -398,17 +413,6 @@ $(document).ready(function () {
     }
 
 
-
-
     Initalize();
-
-
     // Action Button of the Attack
-
-
-
 });//end of Document Object
-
-
-
-
