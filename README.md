@@ -2,24 +2,24 @@
 A Turn Based RPG where the player choose a character then has to fight the remaining enemies
 
 ## List of Items completed and not completed
-    []Character Object
-        []Health
-        []Attack
+    [x]Character Object
+        [x]Health
+        [x]Attack
         []Defense
         []Special
-    []Game object
+    [x]Game object
         []Player Choice to Attack Mode
         []Enemies to Defense Mode
-        []On Click Attack Button
-            []determine who won randomly
-            []minus health from loser
-            []Increment the attack power of player
+        [x]On Click Attack Button
+            [x]determine who won randomly
+            [x]minus health from loser
+            [x]Increment the attack power of player
 
     // Amibious Design
-        [] Add More Fighters and Have player choose 3
+        [x] Add More Fighters and Have player choose 3
         [] Add Special Attack that builds up randomly over time
         [] Animation on Attack
     // Html and CSS
-        [] grid format
-        [] buttons 
-        [] Ids
+        [x] grid format
+        [x] buttons 
+        [x] Ids
